@@ -7,6 +7,8 @@ import cors from 'cors';
 
 import '@shared/infra/typeorm';
 
+import '@shared/container';
+
 import routes from '@shared/infra/http/routes';
 
 import AppError from '@shared/errors/AppError';
