@@ -103,7 +103,7 @@
             }
         },
         "/password/reset": {
-            "post": {
+            "patch": {
                 "security": [{
                     "BearerAuth": []
                 }],

@@ -9,7 +9,7 @@ import ResetPasswordController from '@modules/users/infra/http/controllers/Reset
 const passwordRouter = Router();
 const resetPasswordController = new ResetPasswordController();
 
-passwordRouter.post(
+passwordRouter.patch(
   '/reset', ensureAuthenticated,
   celebrate({
     [Segments.BODY]: {
@@ -17,7 +17,7 @@ passwordRouter.post(
       password_confirmation: Joi.string().valid(Joi.ref('password')).required(),
     },
   }),
-  resetPasswordController.create,
+  resetPasswordController.update,
 );
 
 export default passwordRouter;
