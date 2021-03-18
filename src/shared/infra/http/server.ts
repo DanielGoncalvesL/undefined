@@ -15,7 +15,7 @@ import routes from '@shared/infra/http/routes';
 
 import AppError from '@shared/errors/AppError';
 
-import { errors } from 'celebrate';
+import { isCelebrateError } from 'celebrate';
 
 import swaggerFile from './swagger.json';
 
@@ -29,16 +29,36 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.use(routes);
 
-app.use(errors());
+app.use((error: Error, _: Request, response: Response, __: NextFunction) => {
+  if (error instanceof AppError) {
+    if (error.statusCode === 500) {
+      return response.status(500).json({
+        status: 'error',
+        type: 'Internal',
+        message: 'Internal server error',
+      });
+    }
+    const { statusCode } = error;
 
-app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
-  if (err instanceof AppError) {
-    return response
-      .status(err.statusCode)
-      .json({ status: 'error', message: err.message });
+    return response.status(statusCode).json({
+      status: 'error',
+      message: error.message,
+    });
   }
 
-  console.error(err);
+  if (isCelebrateError(error)) {
+    const values = error.details.values();
+    let { message } = values.next().value.details[0];
+    message = message.replace('"', '').replace('"', '');
+
+    return response.status(400).json({
+      status: 'error',
+      type: 'validation',
+      message,
+    });
+  }
+
+  console.log(error)
 
   return response.status(500).json({
     status: 'error',

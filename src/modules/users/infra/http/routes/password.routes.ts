@@ -10,13 +10,13 @@ const passwordRouter = Router();
 const resetPasswordController = new ResetPasswordController();
 
 passwordRouter.post(
-  '/reset',
+  '/reset', ensureAuthenticated,
   celebrate({
     [Segments.BODY]: {
       password: Joi.string().required(),
-      password_confirmation: Joi.string().valid(Joi.ref('password')),
+      password_confirmation: Joi.string().valid(Joi.ref('password')).required(),
     },
-  }), ensureAuthenticated,
+  }),
   resetPasswordController.create,
 );
 
