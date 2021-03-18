@@ -144,6 +144,52 @@
                     }
                 }
             }
+        },
+        "/profile": {
+            "put": {
+                "security": [{
+                    "BearerAuth": []
+                }],
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update the logged user data",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "user-name",
+                                    "password_confirmation": "user-email"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User profile update is success"
+                    },
+                    "400": {
+                        "description": "User not found | Email already in use"
+                    },
+                    "401": {
+                        "description": "Invalid JWT token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }
     }
 }
