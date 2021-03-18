@@ -1,24 +1,34 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Undefined Documentation",
-        "description": "This is an Api Undefined",
         "version": "DEV",
+        "title": "Undefined Documentation",
+        "description": "This is an Api Undefined\n",
         "contact": {
             "email": "danielopesgl05@gmail.com"
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
         }
     },
     "paths": {
         "/users": {
             "post": {
-                "tags": ["User"],
+                "tags": [
+                    "User"
+                ],
                 "summary": "Create a user",
                 "description": "Create a new user",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "Object",
+                                "type": "object",
                                 "properties": {
                                     "name": {
                                         "type": "string"
@@ -54,13 +64,15 @@
         },
         "/authenticate": {
             "post": {
-                "tags": ["Authentication"],
+                "tags": [
+                    "Authentication"
+                ],
                 "summary": "Authenticate a user",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "Object",
+                                "type": "object",
                                 "properties": {
                                     "email": {
                                         "type": "string"
@@ -83,6 +95,49 @@
                     },
                     "401": {
                         "description": "Incorrect email/password combination"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/password/reset": {
+            "post": {
+                "security": [{
+                    "BearerAuth": []
+                }],
+                "tags": [
+                    "Password"
+                ],
+                "summary": "Reset user password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirm": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "password": "user_password",
+                                    "password_confirmation": "user_password_confirm"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Reset password is success"
+                    },
+                    "400": {
+                        "description": "User not existing | Token expired"
                     },
                     "500": {
                         "description": "Internal server error"
