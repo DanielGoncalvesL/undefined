@@ -5,11 +5,9 @@ import { injectable, inject } from 'tsyringe';
 
 interface IRequest{
   user_id: string;
-  name: string;
-  email: string;
 }
 @injectable()
-export default class UpdateProfileService {
+export default class ShowProfileService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepositories,
@@ -18,8 +16,6 @@ export default class UpdateProfileService {
 
   public async execute({
     user_id,
-    name,
-    email,
   }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
@@ -27,15 +23,6 @@ export default class UpdateProfileService {
       throw new AppError('User not found');
     }
 
-    const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
-
-    if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user.id) {
-      throw new AppError('Email already in use');
-    }
-
-    user.name = name;
-    user.email = email;
-
-    return this.usersRepository.save(user);
+    return user;
   }
 }

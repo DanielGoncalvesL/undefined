@@ -189,6 +189,29 @@
                         "description": "Internal server error"
                     }
                 }
+            },
+            "get": {
+                "security": [{
+                    "BearerAuth": []
+                }],
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Show profile",
+                "responses": {
+                    "200": {
+                        "description": "Show profile is success"
+                    },
+                    "400": {
+                        "description": "User not found"
+                    },
+                    "401": {
+                        "description": "Invalid JWT token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
             }
         }
     }

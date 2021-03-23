@@ -6,12 +6,16 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 const profileRouter = Router();
 const profileController = new ProfileController();
 
-profileRouter.put('/', ensureAuthenticated,
+profileRouter.use(ensureAuthenticated);
+
+profileRouter.put('/',
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
       email: Joi.string().email().required(),
     },
   }), profileController.update);
+
+profileRouter.get('/', profileController.show);
 
 export default profileRouter;
