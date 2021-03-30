@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateUsersTokens1615838756880 implements MigrationInterface {
+export class CreateVehiclesExpenses1617142237776 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users_tokens',
+        name: 'vehicles_expenses',
         columns: [
           {
             name: 'id',
@@ -14,14 +14,19 @@ export class CreateUsersTokens1615838756880 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'token',
-            type: 'uuid',
-            generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
+            name: 'value',
+            type: 'numeric',
+            isNullable: false,
           },
           {
-            name: 'user_id',
+            name: 'description',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'vehicle_id',
             type: 'uuid',
+            isNullable: false,
           },
           {
             name: 'created_at',
@@ -35,18 +40,18 @@ export class CreateUsersTokens1615838756880 implements MigrationInterface {
           },
         ],
         foreignKeys: [{
-          name: 'tokenUser',
-          referencedTableName: 'users',
+          name: 'vehicleExpense',
+          referencedTableName: 'vehicles',
           referencedColumnNames: ['id'],
-          columnNames: ['user_id'],
+          columnNames: ['vehicle_id'],
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE',
         }],
       }),
-    )
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users_tokens');
+    await queryRunner.dropTable('vehicles_expenses');
   }
 }

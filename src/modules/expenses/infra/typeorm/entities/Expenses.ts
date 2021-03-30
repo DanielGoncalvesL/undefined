@@ -4,20 +4,18 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Generated,
 } from 'typeorm';
 
-@Entity('users_tokens')
-export default class UserToken {
+@Entity('expenses')
+export default class Vehicle {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column()
-    @Generated('uuid')
-    token: string;
+    value: number;
 
     @Column()
-    user_id: string
+    description: string;
 
     @CreateDateColumn()
     created_at: Date;
