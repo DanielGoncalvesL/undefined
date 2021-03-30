@@ -8,16 +8,13 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity('vehicles_expenses')
-export default class VehicleExpenses {
+@Entity('vehicles_sale')
+export default class VehicleSale {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
-    value: number;
-
-    @Column()
-    description: string;
+    @Column({ name: 'sale_value' })
+    saleValue: string;
 
     @ManyToOne(() => Vehicle, (vehicle) => vehicle.vehicleSale, { eager: true })
     vehicle: Vehicle;
