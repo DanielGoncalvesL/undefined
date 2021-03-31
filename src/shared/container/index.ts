@@ -9,8 +9,12 @@ import VehiclesRepository from '@modules/vehicles/infra/typeorm/repositories/Veh
 import IExpensesRepository from '@modules/expenses/repositories/IExpensesRepository';
 import ExpensesRepository from '@modules/expenses/infra/typeorm/repositories/ExpensesRepository';
 
+import IVehicleExpensesRepository from '@modules/expenses/repositories/IVehicleExpensesRepository';
+import VehicleExpensesRepository from '@modules/expenses/infra/typeorm/repositories/VehicleExpensesRepository';
+
 import '@modules/users/providers';
 
 container.registerSingleton<IUsersRepositories>('UsersRepository', UsersRepository);
 container.registerSingleton<IVehiclesRepository>('VehiclesRepository', VehiclesRepository);
 container.registerSingleton<IExpensesRepository>('ExpensesRepository', ExpensesRepository);
+container.registerSingleton<IVehicleExpensesRepository>('VehicleExpensesRepository', VehicleExpensesRepository);

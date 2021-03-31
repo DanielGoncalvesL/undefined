@@ -6,6 +6,7 @@ import passwordRouter from '@modules/users/infra/http/routes/password.routes';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import vehiclesRouter from '@modules/vehicles/infra/http/routes/vehicles.routes';
 import expensesRouter from '@modules/expenses/infra/http/routes/expenses.routes';
+import vehicleExpenseRouter from '@modules/expenses/infra/http/routes/vehicles-expenses.routes';
 
 const routes = Router();
 
@@ -15,5 +16,6 @@ routes.use('/password', passwordRouter);
 routes.use('/profile', profileRouter);
 routes.use('/vehicles', vehiclesRouter);
 routes.use('/expenses', expensesRouter);
+routes.use('/vehicle-expenses', vehicleExpenseRouter);
 
 export default routes;
