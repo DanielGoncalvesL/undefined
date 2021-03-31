@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 import CreateVehicleService from '@modules/vehicles/services/CreateVehicleService';
 import DeleteVehicleService from '@modules/vehicles/services/DeleteVehicleService';
 import FindVehicleService from '@modules/vehicles/services/FindVehicleService';
+import FindAllVehicles from '@modules/vehicles/services/FindAllVehicles';
 import UpdateVehicleService from '@modules/vehicles/services/UpdateVehicleService';
 import { container } from 'tsyringe';
 
@@ -43,7 +44,7 @@ export default class VehiclesController {
     return response.status(200).json();
   }
 
-  public async show(request: Request, response: Response): Promise<Response> {
+  public async find(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
     const findVehicleService = container.resolve(FindVehicleService);
@@ -51,6 +52,14 @@ export default class VehiclesController {
     const vehicle = await findVehicleService.execute(id);
 
     return response.status(200).json(vehicle);
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const findAllVehicles = container.resolve(FindAllVehicles);
+
+    const vehicles = await findAllVehicles.execute();
+
+    return response.status(200).json(vehicles);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {

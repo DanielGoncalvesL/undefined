@@ -14,7 +14,7 @@ export default class VehicleExpenses {
     id: string;
 
     @Column()
-    value: number;
+    value: string;
 
     @Column()
     description: string;

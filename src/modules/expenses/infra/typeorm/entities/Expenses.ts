@@ -12,7 +12,7 @@ export default class Expenses {
     id: string;
 
     @Column()
-    value: number;
+    value: string;
 
     @Column()
     description: string;

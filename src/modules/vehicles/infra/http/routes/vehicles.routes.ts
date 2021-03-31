@@ -1,5 +1,11 @@
-import { Router } from 'express';
-import { celebrate, Segments, Joi } from 'celebrate';
+import {
+  Router,
+} from 'express';
+import {
+  celebrate,
+  Segments,
+  Joi,
+} from 'celebrate';
 import VehicleController from '@modules/vehicles/infra/http/controllers/VehicleController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
@@ -31,7 +37,9 @@ vehiclesRouter.get('/:id',
     [Segments.PARAMS]: {
       id: Joi.string().required(),
     },
-  }), vehicleController.show);
+  }), vehicleController.find);
+
+vehiclesRouter.get('/', vehicleController.show);
 
 vehiclesRouter.put('/:id', celebrate({
   [Segments.PARAMS]: {
