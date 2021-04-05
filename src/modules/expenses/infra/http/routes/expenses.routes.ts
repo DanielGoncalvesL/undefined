@@ -18,7 +18,6 @@ expensesRouter.post('/', celebrate({
   [Segments.BODY]: {
     value: Joi.string().required(),
     description: Joi.string().required(),
-    vehicle_id: Joi.string(),
   },
 }), expensesController.create);
 
