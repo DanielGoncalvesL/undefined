@@ -17,6 +17,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "no-restricted-syntax":"off",
       "no-use-before-define": "off",
       "semi":"off",
       "no-console": "off",
