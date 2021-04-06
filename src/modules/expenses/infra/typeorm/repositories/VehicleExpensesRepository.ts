@@ -16,6 +16,16 @@ export default class VehicleExpensesRepository implements IVehicleExpensesReposi
     return expense;
   }
 
+  public async findByVehicleId(vehicle: Vehicle): Promise<VehicleExpenses[] | undefined> {
+    const expense = await this.ormRepository.find({
+      where: {
+        vehicle,
+      },
+    });
+
+    return expense;
+  }
+
   public async find(): Promise<VehicleExpenses[] | undefined> {
     const vehiclesExpenses = await this.ormRepository.find();
 

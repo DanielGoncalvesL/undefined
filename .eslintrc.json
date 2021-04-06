@@ -17,6 +17,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "no-plusplus":"off",
       "no-restricted-syntax":"off",
       "no-use-before-define": "off",
       "semi":"off",

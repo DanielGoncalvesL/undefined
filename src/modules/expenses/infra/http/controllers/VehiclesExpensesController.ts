@@ -6,6 +6,7 @@ import FindAllVehicleExpenseService from '@modules/expenses/services/FindAllVehi
 import FindVehicleExpenseService from '@modules/expenses/services/FindVehicleExpenseService';
 import UpdateVehicleExpenseService from '@modules/expenses/services/UpdateVehicleExpenseService';
 import DeleteVehicleExpeseService from '@modules/expenses/services/DeleteVehicleExpeseService';
+import FindExpenseVehicleByVehicleIdService from '@modules/expenses/services/FindExpenseVehicleByVehicleIdService';
 import { container } from 'tsyringe';
 
 export default class VehiclesExpenses {
@@ -44,6 +45,16 @@ export default class VehiclesExpenses {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
+    const { vehicle_id } = request.params;
+
+    if (vehicle_id) {
+      const findVehicleExpenseService = container.resolve(FindExpenseVehicleByVehicleIdService);
+
+      const filterVehicleExpenseByVehicle = await findVehicleExpenseService.execute(vehicle_id);
+
+      return response.status(200).json(filterVehicleExpenseByVehicle);
+    }
+
     const findAllVehiclesExpenses = container.resolve(FindAllVehicleExpenseService);
 
     const vehiclesExpenses = await findAllVehiclesExpenses.execute();

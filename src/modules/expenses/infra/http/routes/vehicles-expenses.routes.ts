@@ -29,7 +29,17 @@ expensesRouter.delete('/:id',
     },
   }), vehiclesExpensesController.delete);
 
-expensesRouter.get('/', vehiclesExpensesController.show);
+expensesRouter.get('/', celebrate({
+  [Segments.BODY]: {
+    vehicle_id: Joi.string().uuid(),
+  },
+}), vehiclesExpensesController.show);
+
+expensesRouter.get('/vehicle/:vehicle_id', celebrate({
+  [Segments.PARAMS]: {
+    vehicle_id: Joi.string().uuid().required(),
+  },
+}), vehiclesExpensesController.show);
 
 expensesRouter.get('/:id', celebrate({
   [Segments.PARAMS]: {
